@@ -25,6 +25,14 @@ if let c = content {
     print("content: \n\(c)")
     
     // Now try parsing this file (or a file of your choice that you place in the Resources folder
-    
+    let JSONData = c.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+    do {
+        let json = try NSJSONSerialization.JSONObjectWithData(JSONData, options: [])
+        if let names = json["students"] as? [[String: AnyObject]] {
+            print(names)
+        }
+    } catch let error as NSError {
+        print("Failed to load: \(error.localizedDescription)")
+    }
     
 }
